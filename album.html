@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel & Andreea — Albumul Nunții</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e6;
+      --brown-deep: #4a2c0e;
+      --brown-mid: #6b4226;
+      --brown-light: #9c7050;
+      --brown-pale: #c4a07a;
+      --gold: #b8936a;
+      --white: #fffdf8;
+    }
+
+    html, body { min-height: 100%; background: var(--cream); }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      color: var(--brown-deep);
+      min-height: 100vh;
+      padding: 2rem 1rem 3rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .header {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      animation: fadeUp 1s ease both;
+    }
+
+    .names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--brown-mid);
+      letter-spacing: 1px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .ampersand { font-size: 32px; color: var(--brown-pale); }
+
+    .subtitle {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 300px;
+      margin: 0 auto 10px;
+    }
+    .divider-line { flex: 1; height: 0.5px; background: var(--gold); opacity: 0.4; }
+    .divider-ornament { color: var(--gold); font-size: 14px; opacity: 0.6; font-family: 'Cormorant Garamond', serif; }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 28px;
+      border: 1px solid var(--brown-pale);
+      background: transparent;
+      color: var(--brown-light);
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover { background: var(--brown-mid); color: var(--white); border-color: var(--brown-mid); }
+
+    /* Loading state */
+    .loading {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--brown-pale);
+    }
+
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s infinite;
+    }
+    @keyframes dots {
+      0%   { content: ''; }
+      33%  { content: '.'; }
+      66%  { content: '..'; }
+      100% { content: '...'; }
+    }
+
+    /* Empty state */
+    .empty {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--brown-pale);
+    }
+
+    /* Photo count */
+    .photo-count {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--brown-pale);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Grid */
+    .grid {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      columns: 3 200px;
+      column-gap: 10px;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .grid-item {
+      break-inside: avoid;
+      margin-bottom: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .grid-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+      border: 0.5px solid rgba(184,147,106,0.15);
+    }
+
+    .grid-item:hover img { transform: scale(1.03); }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(74,44,14,0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border: 1px solid rgba(184,147,106,0.3);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      color: var(--brown-pale);
+      font-size: 28px;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--white); }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--brown-pale);
+      font-size: 36px;
+      cursor: pointer;
+      font-weight: 300;
+      padding: 0 16px;
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .lightbox-nav:hover { color: var(--white); }
+    .lightbox-prev { left: 8px; }
+    .lightbox-next { right: 8px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      .names { font-size: 32px; }
+      .grid { columns: 2 140px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="names">Daniel <span class="ampersand">&</span> Andreea</div>
+    <div class="subtitle">Albumul Nunții — 04 Iulie 2026</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-ornament">✦</span>
+      <div class="divider-line"></div>
+    </div>
+    <a class="back-btn" href="upload.html">← Înapoi</a>
+  </div>
+
+  <div class="loading" id="loading">
+    <span class="loading-dots">Se încarcă albumul</span>
+  </div>
+
+  <div class="empty" id="empty" style="display:none;">
+    Albumul este încă gol — fii primul care adaugă o amintire 🌸
+  </div>
+
+  <div class="photo-count" id="photoCount" style="display:none;"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lbClose">×</span>
+    <span class="lightbox-nav lightbox-prev" id="lbPrev">‹</span>
+    <img src="" id="lbImg" alt="poză nuntă" />
+    <span class="lightbox-nav lightbox-next" id="lbNext">›</span>
+  </div>
+
+  <script>
+    const CLOUD_NAME = 'dv4ouytoh';
+    const FOLDER = 'nunta-daniel-andreea';
+
+    const loading    = document.getElementById('loading');
+    const empty      = document.getElementById('empty');
+    const photoCount = document.getElementById('photoCount');
+    const grid       = document.getElementById('grid');
+    const lightbox   = document.getElementById('lightbox');
+    const lbImg      = document.getElementById('lbImg');
+    const lbClose    = document.getElementById('lbClose');
+    const lbPrev     = document.getElementById('lbPrev');
+    const lbNext     = document.getElementById('lbNext');
+
+    let images = [];
+    let currentIndex = 0;
+
+    async function loadPhotos() {
+      try {
+        const url = 'https://res.cloudinary.com/' + CLOUD_NAME + '/image/list/' + FOLDER + '.json';
+        const res = await fetch(url + '?t=' + Date.now());
+        const data = await res.json();
+        images = (data.resources || []).reverse();
+
+        loading.style.display = 'none';
+
+        if (images.length === 0) {
+          empty.style.display = 'block';
+          return;
+        }
+
+        photoCount.style.display = 'block';
+        photoCount.textContent = images.length + (images.length === 1 ? ' fotografie' : ' fotografii');
+
+        images.forEach((img, idx) => {
+          const item = document.createElement('div');
+          item.className = 'grid-item';
+
+          const src = 'https://res.cloudinary.com/' + CLOUD_NAME + '/image/upload/w_600,q_auto,f_auto/' + img.public_id;
+
+          const el = document.createElement('img');
+          el.src = src;
+          el.alt = 'poză nuntă';
+          el.loading = 'lazy';
+
+          item.appendChild(el);
+          item.addEventListener('click', () => openLightbox(idx));
+          grid.appendChild(item);
+        });
+
+      } catch (err) {
+        loading.innerHTML = '<span style="color:#a04040;font-style:italic;">Nu s-au putut încărca pozele. Încearcă din nou.</span>';
+      }
+    }
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      const src = 'https://res.cloudinary.com/' + CLOUD_NAME + '/image/upload/w_1200,q_auto,f_auto/' + images[idx].public_id;
+      lbImg.src = src;
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() { lightbox.classList.remove('open'); }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    lbPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      openLightbox(currentIndex);
+    });
+
+    lbNext.addEventListener('click', e => {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % images.length;
+      openLightbox(currentIndex);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + images.length) % images.length; openLightbox(currentIndex); }
+      if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % images.length; openLightbox(currentIndex); }
+    });
+
+    loadPhotos();
+  </script>
+
+</body>
+</html>
