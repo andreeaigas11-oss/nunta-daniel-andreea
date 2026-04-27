@@ -116,8 +116,8 @@
 
     <div class="upload-area" id="uploadArea">
       <div class="drop-zone" id="dropZone">
-        <input type="file" id="fileInput" class="upload-input" accept="image/*" multiple />
-        <span class="drop-text">Apasă pentru a selecta poze</span>
+        <input type="file" id="fileInput" class="upload-input" accept="image/*,video/*" multiple />
+        <span class="drop-text">Apasă pentru a selecta poze sau video</span>
         <span class="drop-hint">poți selecta mai multe odată</span>
       </div>
       <button class="btn btn-primary" id="confirmBtn" disabled>⬆️ <span id="confirmLabel">Selectează poze</span></button>
@@ -161,7 +161,7 @@
     });
     dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); setFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'))); });
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); setFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/') || f.type.startsWith('video/'))); });
     fileInput.addEventListener('change', () => setFiles(Array.from(fileInput.files)));
 
     function setFiles(files) {
@@ -187,12 +187,15 @@
         progressFill.style.width = ((i / files.length) * 100) + '%';
 
         try {
+          const isVideo = files[i].type.startsWith('video/');
+          const resourceType = isVideo ? 'video' : 'image';
+
           const formData = new FormData();
           formData.append('file', files[i]);
           formData.append('upload_preset', UPLOAD_PRESET);
           formData.append('folder', 'nunta-daniel-andreea');
 
-          const res = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', { method: 'POST', body: formData });
+          const res = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/' + resourceType + '/upload', { method: 'POST', body: formData });
           if (!res.ok) throw new Error('upload failed');
           const data = await res.json();
           const url = data.secure_url;
