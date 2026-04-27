@@ -7,226 +7,89 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream: #f5f0e6;
-      --brown-deep: #4a2c0e;
-      --brown-mid: #6b4226;
-      --brown-light: #9c7050;
-      --brown-pale: #c4a07a;
-      --gold: #b8936a;
-      --white: #fffdf8;
+      --cream: #f5f0e6; --brown-deep: #4a2c0e; --brown-mid: #6b4226;
+      --brown-light: #9c7050; --brown-pale: #c4a07a; --gold: #b8936a; --white: #fffdf8;
     }
-
     html, body { min-height: 100%; background: var(--cream); }
-
     body {
-      font-family: 'Raleway', sans-serif;
-      color: var(--brown-deep);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-      position: relative;
-      overflow-x: hidden;
+      font-family: 'Raleway', sans-serif; color: var(--brown-deep);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 2rem 1rem; position: relative; overflow-x: hidden;
     }
-
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
-
     .floral { position: fixed; z-index: 1; opacity: 0.5; }
     .floral-tl { top: -20px; left: -20px; width: 280px; }
     .floral-br { bottom: -20px; right: -20px; width: 280px; transform: rotate(180deg); }
-
     .card {
-      position: relative;
-      z-index: 2;
-      background: var(--white);
-      border: 1px solid rgba(184,147,106,0.25);
-      max-width: 460px;
-      width: 100%;
-      padding: 3rem 2.5rem;
-      text-align: center;
-      animation: fadeUp 1s ease both;
+      position: relative; z-index: 2; background: var(--white);
+      border: 1px solid rgba(184,147,106,0.25); max-width: 460px; width: 100%;
+      padding: 3rem 2.5rem; text-align: center; animation: fadeUp 1s ease both;
     }
-
     .card::before, .card::after {
-      content: '';
-      position: absolute;
-      width: 20px; height: 20px;
-      border-color: var(--gold);
-      border-style: solid;
-      opacity: 0.5;
+      content: ''; position: absolute; width: 20px; height: 20px;
+      border-color: var(--gold); border-style: solid; opacity: 0.5;
     }
     .card::before { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
     .card::after  { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     .names {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--brown-mid);
-      letter-spacing: 1px;
-      line-height: 1.1;
-      margin-bottom: 8px;
-      animation: fadeUp 1s 0.15s ease both;
+      font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300;
+      font-style: italic; color: var(--brown-mid); letter-spacing: 1px; line-height: 1.1;
+      margin-bottom: 8px; animation: fadeUp 1s 0.15s ease both;
     }
-
     .ampersand { font-size: 36px; color: var(--brown-pale); display: block; margin: 2px 0; }
-
     .date {
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--brown-light);
-      margin-bottom: 28px;
-      animation: fadeUp 1s 0.25s ease both;
+      font-size: 11px; font-weight: 400; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--brown-light); margin-bottom: 28px; animation: fadeUp 1s 0.25s ease both;
     }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 auto 28px;
-      animation: fadeUp 1s 0.3s ease both;
-    }
+    .divider { display: flex; align-items: center; gap: 10px; margin: 0 auto 28px; animation: fadeUp 1s 0.3s ease both; }
     .divider-line { flex: 1; height: 0.5px; background: var(--gold); opacity: 0.4; }
     .divider-ornament { color: var(--gold); font-size: 14px; opacity: 0.6; font-family: 'Cormorant Garamond', serif; }
-
     .message {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 21px;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--brown-mid);
-      line-height: 1.7;
-      margin-bottom: 36px;
-      padding: 0 0.5rem;
-      animation: fadeUp 1s 0.4s ease both;
+      font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 300;
+      font-style: italic; color: var(--brown-mid); line-height: 1.7;
+      margin-bottom: 36px; padding: 0 0.5rem; animation: fadeUp 1s 0.4s ease both;
     }
-
-    /* Action buttons */
-    .actions {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      width: 100%;
-      animation: fadeUp 1s 0.5s ease both;
-    }
-
+    .actions { display: flex; flex-direction: column; gap: 14px; width: 100%; animation: fadeUp 1s 0.5s ease both; }
     .btn {
-      width: 100%;
-      padding: 16px 40px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      width: 100%; padding: 16px 40px; font-family: 'Raleway', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: 10px; border: none;
     }
-
-    .btn-primary {
-      background: var(--brown-mid);
-      color: var(--white);
-      border: 1px solid var(--brown-mid);
-    }
+    .btn-primary { background: var(--brown-mid); color: var(--white); border: 1px solid var(--brown-mid); }
     .btn-primary:hover { background: var(--brown-deep); border-color: var(--brown-deep); }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--brown-mid);
-      border: 1px solid var(--brown-mid);
-    }
+    .btn-secondary { background: transparent; color: var(--brown-mid); border: 1px solid var(--brown-mid); }
     .btn-secondary:hover { background: var(--brown-mid); color: var(--white); }
-
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .btn-icon { font-size: 16px; }
-
-    /* Upload area (hidden initially) */
-    .upload-area {
-      display: none;
-      flex-direction: column;
-      gap: 14px;
-      width: 100%;
-      margin-top: 4px;
-    }
+    .upload-area { display: none; flex-direction: column; gap: 14px; width: 100%; margin-top: 4px; }
     .upload-area.visible { display: flex; }
-
     .drop-zone {
-      width: 100%;
-      border: 1px dashed rgba(184,147,106,0.5);
-      background: var(--cream);
-      padding: 28px 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      width: 100%; border: 1px dashed rgba(184,147,106,0.5); background: var(--cream);
+      padding: 28px 20px; cursor: pointer; transition: all 0.3s ease;
     }
-    .drop-zone:hover, .drop-zone.dragover {
-      border-color: var(--brown-mid);
-      background: rgba(245,240,230,0.8);
-    }
-    .drop-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
-      font-style: italic;
-      color: var(--brown-mid);
-      display: block;
-      margin-bottom: 5px;
-    }
+    .drop-zone:hover, .drop-zone.dragover { border-color: var(--brown-mid); background: rgba(245,240,230,0.8); }
+    .drop-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--brown-mid); display: block; margin-bottom: 5px; }
     .drop-hint { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--brown-pale); }
-
     .upload-input { display: none; }
-
     .progress-wrap { width: 100%; display: none; }
     .progress-bar-bg { width: 100%; height: 2px; background: rgba(184,147,106,0.2); border-radius: 2px; overflow: hidden; }
     .progress-bar-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.4s ease; border-radius: 2px; }
     .progress-label { font-size: 11px; letter-spacing: 2px; color: var(--brown-light); margin-top: 10px; text-align: center; }
-
-    .status-msg {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-style: italic;
-      color: var(--brown-mid); display: none;
-    }
+    .status-msg { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--brown-mid); display: none; }
     .status-msg.success { color: #6b7c4a; }
-    .status-msg.error   { color: #a04040; }
-
+    .status-msg.error { color: #a04040; }
     .footer {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 0.5px solid rgba(184,147,106,0.25);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
-      font-style: italic;
-      color: var(--brown-pale);
-      animation: fadeUp 1s 0.7s ease both;
+      margin-top: 32px; padding-top: 24px; border-top: 0.5px solid rgba(184,147,106,0.25);
+      font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic;
+      color: var(--brown-pale); animation: fadeUp 1s 0.7s ease both;
     }
-
-    @media (max-width: 500px) {
-      .card { padding: 2.5rem 1.5rem; }
-      .names { font-size: 38px; }
-      .floral-tl, .floral-br { width: 180px; }
-    }
+    @media (max-width: 500px) { .card { padding: 2.5rem 1.5rem; } .names { font-size: 38px; } .floral-tl, .floral-br { width: 180px; } }
   </style>
 </head>
 <body>
@@ -243,12 +106,9 @@
     <ellipse cx="65" cy="100" rx="34" ry="19" fill="#bfa07a" transform="rotate(-50 65 100)"/>
     <ellipse cx="72" cy="94" rx="16" ry="8" fill="#ede0cc" transform="rotate(-50 72 94)"/>
     <ellipse cx="170" cy="170" rx="30" ry="17" fill="#c8a97e" transform="rotate(40 170 170)"/>
-    <ellipse cx="177" cy="164" rx="14" ry="7" fill="#ede0cc" transform="rotate(40 177 164)"/>
     <ellipse cx="110" cy="200" rx="26" ry="13" fill="#8b7355" transform="rotate(10 110 200)" opacity="0.55"/>
     <ellipse cx="50" cy="140" rx="22" ry="11" fill="#8b7355" transform="rotate(-25 50 140)" opacity="0.45"/>
-    <ellipse cx="170" cy="140" rx="24" ry="12" fill="#8b7355" transform="rotate(35 170 140)" opacity="0.45"/>
     <ellipse cx="130" cy="230" rx="14" ry="7" fill="#d4b896" transform="rotate(5 130 230)"/>
-    <ellipse cx="35" cy="180" rx="12" ry="6" fill="#c8a97e" transform="rotate(-40 35 180)"/>
   </svg>
 
   <svg class="floral floral-br" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" fill="none">
@@ -263,86 +123,74 @@
     <ellipse cx="65" cy="100" rx="34" ry="19" fill="#bfa07a" transform="rotate(-50 65 100)"/>
     <ellipse cx="72" cy="94" rx="16" ry="8" fill="#ede0cc" transform="rotate(-50 72 94)"/>
     <ellipse cx="170" cy="170" rx="30" ry="17" fill="#c8a97e" transform="rotate(40 170 170)"/>
-    <ellipse cx="177" cy="164" rx="14" ry="7" fill="#ede0cc" transform="rotate(40 177 164)"/>
     <ellipse cx="110" cy="200" rx="26" ry="13" fill="#8b7355" transform="rotate(10 110 200)" opacity="0.55"/>
     <ellipse cx="50" cy="140" rx="22" ry="11" fill="#8b7355" transform="rotate(-25 50 140)" opacity="0.45"/>
-    <ellipse cx="170" cy="140" rx="24" ry="12" fill="#8b7355" transform="rotate(35 170 140)" opacity="0.45"/>
     <ellipse cx="130" cy="230" rx="14" ry="7" fill="#d4b896" transform="rotate(5 130 230)"/>
-    <ellipse cx="35" cy="180" rx="12" ry="6" fill="#c8a97e" transform="rotate(-40 35 180)"/>
   </svg>
 
   <main class="card">
-    <div class="names">
-      Daniel
-      <span class="ampersand">&</span>
-      Andreea
-    </div>
-
+    <div class="names">Daniel<span class="ampersand">&</span>Andreea</div>
     <div class="date">04 Iulie 2026</div>
-
     <div class="divider">
       <div class="divider-line"></div>
       <span class="divider-ornament">✦</span>
       <div class="divider-line"></div>
     </div>
-
-    <p class="message">
-      Share the love ❤️<br>
-      Scanează codul și lasă-ne<br>pozele tale din seara asta 📷
-    </p>
+    <p class="message">Share the love ❤️<br>Scanează codul și lasă-ne<br>pozele tale din seara asta 📷</p>
 
     <div class="actions" id="actions">
-      <button class="btn btn-primary" id="btnUpload">
-        <span class="btn-icon">📷</span> Încarcă fotografii
-      </button>
-      <a class="btn btn-secondary" href="album.html">
-        <span class="btn-icon">🖼️</span> Vezi albumul
-      </a>
+      <button class="btn btn-primary" id="btnUpload">📷 Încarcă fotografii</button>
+      <a class="btn btn-secondary" href="album.html">🖼️ Vezi albumul</a>
     </div>
 
     <div class="upload-area" id="uploadArea">
       <input type="file" id="fileInput" class="upload-input" accept="image/*" multiple />
-
       <div class="drop-zone" id="dropZone">
         <span class="drop-text">Trage pozele aici</span>
         <span class="drop-hint">sau apasă pentru a selecta</span>
       </div>
-
-      <button class="btn btn-primary" id="confirmUploadBtn" disabled>
-        <span class="btn-icon">⬆️</span> <span id="confirmLabel">Selectează poze</span>
-      </button>
-
+      <button class="btn btn-primary" id="confirmBtn" disabled>⬆️ <span id="confirmLabel">Selectează poze</span></button>
       <button class="btn btn-secondary" id="btnBack">← Înapoi</button>
-
       <div class="progress-wrap" id="progressWrap">
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
         <div class="progress-label" id="progressLabel">Se încarcă...</div>
       </div>
-
       <div class="status-msg" id="statusMsg"></div>
     </div>
 
     <div class="footer">Mulțumim pentru amintiri!</div>
   </main>
 
-  <script>
-    const CLOUD_NAME = 'dv4ouytoh';
-    const UPLOAD_PRESET = 'dd.wedding';
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    const actions         = document.getElementById('actions');
-    const uploadArea      = document.getElementById('uploadArea');
-    const btnUpload       = document.getElementById('btnUpload');
-    const btnBack         = document.getElementById('btnBack');
-    const fileInput       = document.getElementById('fileInput');
-    const dropZone        = document.getElementById('dropZone');
-    const confirmUploadBtn= document.getElementById('confirmUploadBtn');
-    const confirmLabel    = document.getElementById('confirmLabel');
-    const progressWrap    = document.getElementById('progressWrap');
-    const progressFill    = document.getElementById('progressFill');
-    const progressLabel   = document.getElementById('progressLabel');
-    const statusMsg       = document.getElementById('statusMsg');
+    const firebaseConfig = {
+      apiKey: "AIzaSyATyCedtxocSmWQpJgz3K5kfgJys_AyUNg",
+      authDomain: "nunta-daniel-andreea-f4e14.firebaseapp.com",
+      projectId: "nunta-daniel-andreea-f4e14",
+      storageBucket: "nunta-daniel-andreea-f4e14.firebasestorage.app",
+      messagingSenderId: "133385411398",
+      appId: "1:133385411398:web:fcf63f6d871029775e2347"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const db = getFirestore(app);
+
+    const actions    = document.getElementById('actions');
+    const uploadArea = document.getElementById('uploadArea');
+    const btnUpload  = document.getElementById('btnUpload');
+    const btnBack    = document.getElementById('btnBack');
+    const fileInput  = document.getElementById('fileInput');
+    const dropZone   = document.getElementById('dropZone');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const confirmLabel = document.getElementById('confirmLabel');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressFill = document.getElementById('progressFill');
+    const progressLabel = document.getElementById('progressLabel');
+    const statusMsg  = document.getElementById('statusMsg');
 
     let selectedFiles = [];
 
@@ -355,7 +203,7 @@
       uploadArea.classList.remove('visible');
       actions.style.display = 'flex';
       selectedFiles = [];
-      confirmUploadBtn.disabled = true;
+      confirmBtn.disabled = true;
       confirmLabel.textContent = 'Selectează poze';
       statusMsg.style.display = 'none';
       fileInput.value = '';
@@ -365,27 +213,24 @@
     dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', e => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
+      e.preventDefault(); dropZone.classList.remove('dragover');
       setFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
     });
-
     fileInput.addEventListener('change', () => setFiles(Array.from(fileInput.files)));
 
     function setFiles(files) {
       if (!files.length) return;
       selectedFiles = files;
-      confirmUploadBtn.disabled = false;
+      confirmBtn.disabled = false;
       confirmLabel.textContent = files.length === 1 ? 'Încarcă 1 poză' : 'Încarcă ' + files.length + ' poze';
       dropZone.querySelector('.drop-text').textContent = files.length === 1 ? '1 poză selectată ✦' : files.length + ' poze selectate ✦';
     }
 
-    confirmUploadBtn.addEventListener('click', () => handleUpload(selectedFiles));
+    confirmBtn.addEventListener('click', () => handleUpload(selectedFiles));
 
     async function handleUpload(files) {
       if (!files.length) return;
-
-      confirmUploadBtn.disabled = true;
+      confirmBtn.disabled = true;
       btnBack.style.display = 'none';
       dropZone.style.pointerEvents = 'none';
       progressWrap.style.display = 'block';
@@ -398,31 +243,34 @@
         progressLabel.textContent = 'Se încarcă ' + (i + 1) + ' din ' + files.length + '...';
         progressFill.style.width = ((i / files.length) * 100) + '%';
 
-        const formData = new FormData();
-        formData.append('file', files[i]);
-        formData.append('upload_preset', UPLOAD_PRESET);
-        formData.append('folder', 'nunta-daniel-andreea');
-        formData.append('tags', 'nunta2026');
-
         try {
-          const res = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', {
-            method: 'POST', body: formData
+          const file = files[i];
+          const storageRef = ref(storage, 'nunta/' + Date.now() + '_' + file.name);
+          const snapshot = await uploadBytesResumable(storageRef, file);
+          const downloadURL = await getDownloadURL(snapshot.ref);
+
+          await addDoc(collection(db, 'photos'), {
+            url: downloadURL,
+            name: file.name,
+            createdAt: serverTimestamp()
           });
-          if (res.ok) { uploaded++; } else { failed++; }
-        } catch { failed++; }
+          uploaded++;
+        } catch (e) {
+          console.error(e);
+          failed++;
+        }
       }
 
       progressFill.style.width = '100%';
       setTimeout(() => { progressWrap.style.display = 'none'; }, 600);
-
-      confirmUploadBtn.disabled = false;
+      confirmBtn.disabled = false;
       btnBack.style.display = '';
       dropZone.style.pointerEvents = 'auto';
       fileInput.value = '';
       selectedFiles = [];
       confirmLabel.textContent = 'Selectează poze';
       dropZone.querySelector('.drop-text').textContent = 'Trage pozele aici';
-      confirmUploadBtn.disabled = true;
+      confirmBtn.disabled = true;
 
       statusMsg.style.display = 'block';
       if (failed === 0) {
@@ -437,6 +285,5 @@
       }
     }
   </script>
-
 </body>
 </html>
