@@ -7,100 +7,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream: #f5f0e6; --brown-deep: #4a2c0e; --brown-mid: #6b4226;
-      --brown-light: #9c7050; --brown-pale: #c4a07a; --gold: #b8936a; --white: #fffdf8;
-    }
+    :root { --cream: #f5f0e6; --brown-deep: #4a2c0e; --brown-mid: #6b4226; --brown-light: #9c7050; --brown-pale: #c4a07a; --gold: #b8936a; --white: #fffdf8; }
     html, body { min-height: 100%; background: var(--cream); }
-    body {
-      font-family: 'Raleway', sans-serif; color: var(--brown-deep);
-      min-height: 100vh; padding: 2rem 1rem 3rem;
-      position: relative; overflow-x: hidden;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
-    }
-    .header {
-      position: relative; z-index: 2; text-align: center;
-      max-width: 700px; margin: 0 auto 2.5rem; animation: fadeUp 1s ease both;
-    }
+    body { font-family: 'Raleway', sans-serif; color: var(--brown-deep); min-height: 100vh; padding: 2rem 1rem 3rem; position: relative; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+    .header { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto 2.5rem; animation: fadeUp 1s ease both; }
     .names { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; font-style: italic; color: var(--brown-mid); line-height: 1.1; margin-bottom: 6px; }
     .ampersand { font-size: 32px; color: var(--brown-pale); }
     .subtitle { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: var(--brown-light); margin-bottom: 20px; }
     .divider { display: flex; align-items: center; gap: 10px; max-width: 300px; margin: 0 auto 16px; }
     .divider-line { flex: 1; height: 0.5px; background: var(--gold); opacity: 0.4; }
     .divider-ornament { color: var(--gold); font-size: 14px; opacity: 0.6; font-family: 'Cormorant Garamond', serif; }
-    .back-btn {
-      display: inline-block; margin-top: 8px; padding: 10px 28px;
-      border: 1px solid var(--brown-pale); background: transparent; color: var(--brown-light);
-      font-family: 'Raleway', sans-serif; font-size: 10px; letter-spacing: 3px;
-      text-transform: uppercase; text-decoration: none; transition: all 0.3s ease;
-    }
+    .back-btn { display: inline-block; margin-top: 8px; padding: 10px 28px; border: 1px solid var(--brown-pale); background: transparent; color: var(--brown-light); font-family: 'Raleway', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; }
     .back-btn:hover { background: var(--brown-mid); color: var(--white); border-color: var(--brown-mid); }
-    .live-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 12px; font-size: 10px; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--brown-light);
-    }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: #6b7c4a;
-      animation: pulse 2s infinite;
-    }
+    .live-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--brown-light); }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7c4a; animation: pulse 2s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .loading {
-      position: relative; z-index: 2; text-align: center; padding: 3rem;
-      font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--brown-pale);
-    }
-    .empty {
-      position: relative; z-index: 2; text-align: center; padding: 3rem 1rem;
-      font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--brown-pale);
-    }
-    .photo-count {
-      position: relative; z-index: 2; text-align: center;
-      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--brown-pale); margin-bottom: 1.5rem;
-    }
-    .grid {
-      position: relative; z-index: 2; max-width: 900px; margin: 0 auto;
-      columns: 3 200px; column-gap: 10px;
-    }
+    .loading { position: relative; z-index: 2; text-align: center; padding: 3rem; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--brown-pale); }
+    .empty { position: relative; z-index: 2; text-align: center; padding: 3rem 1rem; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--brown-pale); }
+    .photo-count { position: relative; z-index: 2; text-align: center; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--brown-pale); margin-bottom: 1.5rem; }
+    .grid { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; columns: 3 200px; column-gap: 10px; }
     .grid-item { break-inside: avoid; margin-bottom: 10px; overflow: hidden; cursor: pointer; }
-    .grid-item img {
-      width: 100%; display: block; transition: transform 0.4s ease;
-      border: 0.5px solid rgba(184,147,106,0.15);
-    }
+    .grid-item img { width: 100%; display: block; transition: transform 0.4s ease; border: 0.5px solid rgba(184,147,106,0.15); }
     .grid-item:hover img { transform: scale(1.03); }
     .grid-item.new-photo { animation: popIn 0.5s ease both; }
     @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-    .lightbox {
-      display: none; position: fixed; inset: 0;
-      background: rgba(74,44,14,0.92); z-index: 100;
-      align-items: center; justify-content: center; padding: 1rem;
-    }
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(74,44,14,0.92); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border: 1px solid rgba(184,147,106,0.3); }
     .lightbox-close { position: absolute; top: 20px; right: 24px; color: var(--brown-pale); font-size: 28px; cursor: pointer; transition: color 0.2s; }
     .lightbox-close:hover { color: var(--white); }
     .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: var(--brown-pale); font-size: 36px; cursor: pointer; padding: 0 16px; transition: color 0.2s; user-select: none; }
     .lightbox-nav:hover { color: var(--white); }
-    .lightbox-prev { left: 8px; }
-    .lightbox-next { right: 8px; }
+    .lightbox-prev { left: 8px; } .lightbox-next { right: 8px; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 500px) { .names { font-size: 32px; } .grid { columns: 2 140px; } }
   </style>
 </head>
 <body>
-
   <div class="header">
     <div class="names">Daniel <span class="ampersand">&</span> Andreea</div>
     <div class="subtitle">Albumul Nunții — 04 Iulie 2026</div>
-    <div class="divider">
-      <div class="divider-line"></div>
-      <span class="divider-ornament">✦</span>
-      <div class="divider-line"></div>
-    </div>
+    <div class="divider"><div class="divider-line"></div><span class="divider-ornament">✦</span><div class="divider-line"></div></div>
     <a class="back-btn" href="upload.html">← Înapoi</a>
     <div class="live-badge"><span class="live-dot"></span> Live</div>
   </div>
@@ -117,21 +65,13 @@
     <span class="lightbox-nav lightbox-next" id="lbNext">›</span>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://tkjgsuiocutuiuwxxinc.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_ljMEAbOM6vpozsCgV6b-eg_LH9aQbOF';
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyATyCedtxocSmWQpJgz3K5kfgJys_AyUNg",
-      authDomain: "nunta-daniel-andreea-f4e14.firebaseapp.com",
-      projectId: "nunta-daniel-andreea-f4e14",
-      storageBucket: "nunta-daniel-andreea-f4e14.firebasestorage.app",
-      messagingSenderId: "133385411398",
-      appId: "1:133385411398:web:fcf63f6d871029775e2347"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    const { createClient } = supabase;
+    const client = createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const loading    = document.getElementById('loading');
     const empty      = document.getElementById('empty');
@@ -145,71 +85,44 @@
 
     let images = [];
     let currentIndex = 0;
-    let isFirst = true;
 
-    const q = query(collection(db, 'photos'), orderBy('createdAt', 'desc'));
-
-    onSnapshot(q, (snapshot) => {
+    async function loadPhotos() {
+      const { data, error } = await client.from('photos').select('*').order('id', { ascending: false });
       loading.style.display = 'none';
-
-      snapshot.docChanges().forEach(change => {
-        if (change.type === 'added') {
-          const data = change.doc.data();
-          const url = data.url;
-
-          if (!isFirst) {
-            images.unshift({ url });
-            const item = createItem(url, 0, true);
-            grid.insertBefore(item, grid.firstChild);
-          } else {
-            images.push({ url });
-          }
-        }
-      });
-
-      if (isFirst) {
-        grid.innerHTML = '';
-        if (images.length === 0) {
-          empty.style.display = 'block';
-        } else {
-          empty.style.display = 'none';
-          images.forEach((img, idx) => {
-            grid.appendChild(createItem(img.url, idx, false));
-          });
-        }
-        isFirst = false;
-      }
-
+      if (error) { loading.innerHTML = '<span style="color:#a04040;font-style:italic;">Eroare la încărcare. Încearcă din nou.</span>'; loading.style.display = 'block'; return; }
+      images = data || [];
+      if (images.length === 0) { empty.style.display = 'block'; return; }
+      images.forEach((photo, idx) => grid.appendChild(createItem(photo.url, idx, false)));
       updateCount();
-    });
+    }
+
+    client.channel('photos-channel')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'photos' }, payload => {
+        const photo = payload.new;
+        images.unshift(photo);
+        const item = createItem(photo.url, 0, true);
+        grid.insertBefore(item, grid.firstChild);
+        empty.style.display = 'none';
+        updateCount();
+      })
+      .subscribe();
 
     function createItem(url, idx, isNew) {
       const item = document.createElement('div');
       item.className = 'grid-item' + (isNew ? ' new-photo' : '');
       const img = document.createElement('img');
-      img.src = url;
-      img.alt = 'poză nuntă';
-      img.loading = 'lazy';
+      img.src = url; img.alt = 'poză nuntă'; img.loading = 'lazy';
       item.appendChild(img);
       item.addEventListener('click', () => openLightbox(idx));
       return item;
     }
 
     function updateCount() {
-      const items = grid.querySelectorAll('.grid-item').length;
-      if (items > 0) {
-        photoCount.style.display = 'block';
-        photoCount.textContent = items + (items === 1 ? ' fotografie' : ' fotografii');
-        empty.style.display = 'none';
-      }
+      const count = grid.querySelectorAll('.grid-item').length;
+      if (count > 0) { photoCount.style.display = 'block'; photoCount.textContent = count + (count === 1 ? ' fotografie' : ' fotografii'); }
     }
 
-    function openLightbox(idx) {
-      currentIndex = idx;
-      lbImg.src = images[idx].url;
-      lightbox.classList.add('open');
-    }
-
+    function openLightbox(idx) { currentIndex = idx; lbImg.src = images[idx].url; lightbox.classList.add('open'); }
     lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
     lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
     lbPrev.addEventListener('click', e => { e.stopPropagation(); currentIndex = (currentIndex - 1 + images.length) % images.length; openLightbox(currentIndex); });
@@ -220,6 +133,8 @@
       if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + images.length) % images.length; openLightbox(currentIndex); }
       if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % images.length; openLightbox(currentIndex); }
     });
+
+    loadPhotos();
   </script>
 </body>
 </html>
