@@ -7,61 +7,277 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --cream: #f5f0e6; --brown-deep: #4a2c0e; --brown-mid: #6b4226; --brown-light: #9c7050; --brown-pale: #c4a07a; --gold: #b8936a; --white: #fffdf8; }
-    html, body { min-height: 100%; background: var(--cream); }
-    body { font-family: 'Raleway', sans-serif; color: var(--brown-deep); min-height: 100vh; padding: 2rem 1rem 3rem; position: relative; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
-    .header { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto 2.5rem; animation: fadeUp 1s ease both; }
-    .names { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; font-style: italic; color: var(--brown-mid); line-height: 1.1; margin-bottom: 6px; }
-    .ampersand { font-size: 32px; color: var(--brown-pale); }
-    .subtitle { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: var(--brown-light); margin-bottom: 20px; }
-    .divider { display: flex; align-items: center; gap: 10px; max-width: 300px; margin: 0 auto 16px; }
-    .divider-line { flex: 1; height: 0.5px; background: var(--gold); opacity: 0.4; }
-    .divider-ornament { color: var(--gold); font-size: 14px; opacity: 0.6; font-family: 'Cormorant Garamond', serif; }
-    .back-btn { display: inline-block; margin-top: 8px; padding: 10px 28px; border: 1px solid var(--brown-pale); background: transparent; color: var(--brown-light); font-family: 'Raleway', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; }
-    .back-btn:hover { background: var(--brown-mid); color: var(--white); border-color: var(--brown-mid); }
-    .live-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--brown-light); }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7c4a; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .loading { position: relative; z-index: 2; text-align: center; padding: 3rem; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--brown-pale); }
-    .empty { position: relative; z-index: 2; text-align: center; padding: 3rem 1rem; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--brown-pale); }
-    .photo-count { position: relative; z-index: 2; text-align: center; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--brown-pale); margin-bottom: 1.5rem; }
-    .grid { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; columns: 3 200px; column-gap: 10px; }
-    .grid-item { break-inside: avoid; margin-bottom: 10px; overflow: hidden; cursor: pointer; }
-    .grid-item img { width: 100%; display: block; transition: transform 0.4s ease; border: 0.5px solid rgba(184,147,106,0.15); }
-    .grid-item:hover img { transform: scale(1.03); }
+
+    html, body {
+      min-height: 100%;
+      background: #0a0a0a;
+      color: #fff;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 4rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .ampersand { font-size: 32px; color: rgba(255,255,255,0.4); }
+
+    .subtitle {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 260px;
+      margin: 0 auto 20px;
+    }
+
+    .divider-line { flex: 1; height: 0.5px; background: rgba(255,255,255,0.15); }
+    .divider-ornament { color: rgba(255,255,255,0.25); font-size: 12px; font-family: 'Cormorant Garamond', serif; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .back-btn:hover {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(140,200,120,0.9);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    /* Photo count */
+    .photo-count {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Loading / empty states */
+    .loading, .empty {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Grid */
+    .grid {
+      position: relative;
+      z-index: 2;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 10px;
+      columns: 3 200px;
+      column-gap: 8px;
+    }
+
+    .grid-item {
+      break-inside: avoid;
+      margin-bottom: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .grid-item img,
+    .grid-item video {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+      opacity: 0.88;
+    }
+
+    .grid-item:hover img,
+    .grid-item:hover video {
+      transform: scale(1.03);
+      opacity: 1;
+    }
+
     .grid-item.new-photo { animation: popIn 0.5s ease both; }
-    @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-    .lightbox { display: none; position: fixed; inset: 0; background: rgba(74,44,14,0.92); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 0.88; transform: scale(1); } }
+
+    /* Video badge */
+    .video-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      font-family: 'Raleway', sans-serif;
+      pointer-events: none;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
     .lightbox.open { display: flex; }
-    .lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border: 1px solid rgba(184,147,106,0.3); }
-    .lightbox-close { position: absolute; top: 20px; right: 24px; color: var(--brown-pale); font-size: 28px; cursor: pointer; transition: color 0.2s; }
-    .lightbox-close:hover { color: var(--white); }
-    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: var(--brown-pale); font-size: 36px; cursor: pointer; padding: 0 16px; transition: color 0.2s; user-select: none; }
-    .lightbox-nav:hover { color: var(--white); }
-    .lightbox-prev { left: 8px; } .lightbox-next { right: 8px; }
+
+    .lightbox img,
+    .lightbox video {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      color: rgba(255,255,255,0.5);
+      font-size: 28px;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover { color: #fff; }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 40px;
+      cursor: pointer;
+      padding: 0 16px;
+      transition: color 0.2s;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .lightbox-nav:hover { color: #fff; }
+    .lightbox-prev { left: 4px; }
+    .lightbox-next { right: 4px; }
+
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 500px) { .names { font-size: 32px; } .grid { columns: 2 140px; } }
+
+    @media (max-width: 500px) {
+      .names { font-size: 32px; }
+      .grid { columns: 2 130px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="header">
     <div class="names">Daniel <span class="ampersand">&</span> Andreea</div>
     <div class="subtitle">Albumul Nunții — 04 Iulie 2026</div>
-    <div class="divider"><div class="divider-line"></div><span class="divider-ornament">✦</span><div class="divider-line"></div></div>
-    <a class="back-btn" href="upload.html">← Înapoi</a>
-    <div class="live-badge"><span class="live-dot"></span> Live</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-ornament">✦</span>
+      <div class="divider-line"></div>
+    </div>
+    <div class="header-actions">
+      <a class="back-btn" href="upload.html">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Încarcă
+      </a>
+      <div class="live-badge"><span class="live-dot"></span> Live</div>
+    </div>
   </div>
 
   <div class="loading" id="loading">Se încarcă albumul...</div>
-  <div class="empty" id="empty" style="display:none;">Albumul este încă gol — fii primul care adaugă o amintire 🌸</div>
+  <div class="empty" id="empty" style="display:none;">Albumul este încă gol — fii primul care adaugă o amintire</div>
   <div class="photo-count" id="photoCount" style="display:none;"></div>
   <div class="grid" id="grid"></div>
 
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lbClose">×</span>
     <span class="lightbox-nav lightbox-prev" id="lbPrev">‹</span>
-    <img src="" id="lbImg" alt="poză nuntă" />
+    <img src="" id="lbImg" alt="poză nuntă" style="display:none;" />
+    <video id="lbVideo" controls style="display:none;max-width:90vw;max-height:88vh;"></video>
     <span class="lightbox-nav lightbox-next" id="lbNext">›</span>
   </div>
 
@@ -79,6 +295,7 @@
     const grid       = document.getElementById('grid');
     const lightbox   = document.getElementById('lightbox');
     const lbImg      = document.getElementById('lbImg');
+    const lbVideo    = document.getElementById('lbVideo');
     const lbClose    = document.getElementById('lbClose');
     const lbPrev     = document.getElementById('lbPrev');
     const lbNext     = document.getElementById('lbNext');
@@ -86,10 +303,18 @@
     let images = [];
     let currentIndex = 0;
 
+    function isVideo(url) {
+      return /\.(mp4|mov|avi|webm|mkv)(\?|$)/i.test(url) || url.includes('/video/upload/');
+    }
+
     async function loadPhotos() {
       const { data, error } = await client.from('photos').select('*').order('id', { ascending: false });
       loading.style.display = 'none';
-      if (error) { loading.innerHTML = '<span style="color:#a04040;font-style:italic;">Eroare la încărcare. Încearcă din nou.</span>'; loading.style.display = 'block'; return; }
+      if (error) {
+        loading.innerHTML = '<span style="color:rgba(220,100,100,0.8);font-style:italic;">Eroare la încărcare. Încearcă din nou.</span>';
+        loading.style.display = 'block';
+        return;
+      }
       images = data || [];
       if (images.length === 0) { empty.style.display = 'block'; return; }
       images.forEach((photo, idx) => grid.appendChild(createItem(photo.url, idx, false)));
@@ -110,26 +335,77 @@
     function createItem(url, idx, isNew) {
       const item = document.createElement('div');
       item.className = 'grid-item' + (isNew ? ' new-photo' : '');
-      const img = document.createElement('img');
-      img.src = url; img.alt = 'poză nuntă'; img.loading = 'lazy';
-      item.appendChild(img);
+
+      if (isVideo(url)) {
+        const video = document.createElement('video');
+        video.src = url;
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+        item.appendChild(video);
+        const badge = document.createElement('div');
+        badge.className = 'video-badge';
+        badge.textContent = 'video';
+        item.appendChild(badge);
+      } else {
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'poză nuntă';
+        img.loading = 'lazy';
+        item.appendChild(img);
+      }
+
       item.addEventListener('click', () => openLightbox(idx));
       return item;
     }
 
     function updateCount() {
       const count = grid.querySelectorAll('.grid-item').length;
-      if (count > 0) { photoCount.style.display = 'block'; photoCount.textContent = count + (count === 1 ? ' fotografie' : ' fotografii'); }
+      if (count > 0) {
+        photoCount.style.display = 'block';
+        photoCount.textContent = count + (count === 1 ? ' fotografie' : ' fotografii');
+      }
     }
 
-    function openLightbox(idx) { currentIndex = idx; lbImg.src = images[idx].url; lightbox.classList.add('open'); }
-    lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
-    lbPrev.addEventListener('click', e => { e.stopPropagation(); currentIndex = (currentIndex - 1 + images.length) % images.length; openLightbox(currentIndex); });
-    lbNext.addEventListener('click', e => { e.stopPropagation(); currentIndex = (currentIndex + 1) % images.length; openLightbox(currentIndex); });
+    function openLightbox(idx) {
+      currentIndex = idx;
+      const url = images[idx].url;
+      if (isVideo(url)) {
+        lbImg.style.display = 'none';
+        lbVideo.style.display = 'block';
+        lbVideo.src = url;
+        lbVideo.play();
+      } else {
+        lbVideo.style.display = 'none';
+        lbVideo.pause();
+        lbVideo.src = '';
+        lbImg.style.display = 'block';
+        lbImg.src = url;
+      }
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lbVideo.pause();
+      lbVideo.src = '';
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    lbPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      openLightbox(currentIndex);
+    });
+    lbNext.addEventListener('click', e => {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % images.length;
+      openLightbox(currentIndex);
+    });
     document.addEventListener('keydown', e => {
       if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') lightbox.classList.remove('open');
+      if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + images.length) % images.length; openLightbox(currentIndex); }
       if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % images.length; openLightbox(currentIndex); }
     });
