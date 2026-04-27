@@ -283,8 +283,9 @@
 
     async function loadPhotos() {
       try {
-        const url = 'https://res.cloudinary.com/' + CLOUD_NAME + '/image/list/' + FOLDER + '.json';
-        const res = await fetch(url + '?t=' + Date.now());
+        const url = 'https://res.cloudinary.com/' + CLOUD_NAME + '/image/list/nunta2026.json?t=' + Date.now();
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('fetch failed');
         const data = await res.json();
         images = (data.resources || []).reverse();
 

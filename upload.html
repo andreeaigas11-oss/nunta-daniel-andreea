@@ -402,6 +402,7 @@
         formData.append('file', files[i]);
         formData.append('upload_preset', UPLOAD_PRESET);
         formData.append('folder', 'nunta-daniel-andreea');
+        formData.append('tags', 'nunta2026');
 
         try {
           const res = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/image/upload', {
